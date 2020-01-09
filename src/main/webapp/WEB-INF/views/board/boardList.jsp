@@ -12,7 +12,8 @@
 <c:import url="../template/nav.jsp"/>
 
 <div class="container">
-  <h2 style="text-align: center;">Notice List</h2>            
+  <h2 style="text-align: center;">${board} List</h2>
+  <div style="min-height: 410px; margin-bottom: 20px;">            
   <table class="table table-hover">
     <thead>
       <tr>
@@ -31,17 +32,23 @@
         <td>${notice.writer }</td>
         <td>${notice.regDate }</td>
         <td>${notice.hit }</td>
+        <td>
+        	<c:forEach items="${notice.filesList }" var="f">
+        		<span> ${f.oname }</span>
+        	</c:forEach>
+        </td>
       </tr>      
 	</c:forEach>
     </tbody>
   </table>
+  </div>
 <!-- PAGER ----------------------------------------------------->  
- 	<div class="or-pager">
-		<c:if test="${pager.curBlock gt 1 }">
+ 	<div class="or-pager" style="text-align: center;">
+		<c:if test="${pager.curBlock gt 0 }">
 			
 			<button type="button" class="btn-pager" id="none-hover"> << </button>
 		</c:if>
-		<c:if test="${pager.curBlock ne 1 }">
+		<c:if test="${pager.curBlock ne 0 }">
 			<button type="button" class="btn-pager" id="none-hover"> < </button>
 		</c:if>
 		<c:forEach begin="${pager.startNum }" end="${pager.lastNum}" var="p">
@@ -50,15 +57,15 @@
 				<button type="button" style="color: black; font-weight: bold;" title="${p }" class="btn-pager"> ${p } </button>
 			</c:when>
 			<c:otherwise>
-				<a href="NoticeList?curPage=${p }">${p }</a>
+				<a href="NoticeList?page=${p-1 }&size=10">${p }</a>
 <%-- 				<button type="button" title="${p }"  class="btn-pager"> ${p } </button> --%>
 			</c:otherwise>
 		</c:choose>
 		
 		</c:forEach>
-		<c:if test="${pager.curBlock lt pager.totalBlock }">
+		<c:if test="${pager.curBlock lt pager.totalBlock-1 }">
 			<button type="button" class="btn-pager" id="none-hover"> > </button>
-			<c:if test="${pager.totalBlock gt pager.curBlock+1 }">
+			<c:if test="${pager.totalBlock gt pager.curBlock }">
 				<button type="button" class="btn-pager" id="none-hover"> >> </button>
 			</c:if>
 		</c:if>

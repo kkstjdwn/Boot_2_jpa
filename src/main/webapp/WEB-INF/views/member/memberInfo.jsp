@@ -9,11 +9,11 @@
 </head>
 <body>
 <c:import url="../template/nav.jsp"/>
-<%-- <c:choose> --%>
-<%-- <c:when test="${!empty member }"> --%>
+<c:choose>
+<c:when test="${!empty member }">
 	<div class="container">
 	  <h2>Horizontal form</h2>
-	  <form class="form-horizontal" action="memberUpdate">
+	  <form class="form-horizontal">
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for="id">ID:</label>
 	      <div class="col-sm-10">
@@ -54,18 +54,43 @@
 	    </div>
 	    <div class="form-group">        
 	      <div class="col-sm-offset-2 col-sm-10">
-	        <button type="submit" class="btn btn-warning">MODIFY</button>
+	        <a href="memberUpdate" class="btn btn-warning">MODIFY</a>
+	        <button type="button" class="btn btn-danger" id="memDel">SignOut</button>
 	      </div>
 	    </div>
 	  </form>
 	</div>
-<%-- </c:when> --%>
-<%-- <c:otherwise> --%>
+</c:when>
+<c:otherwise>
 	<script type="text/javascript">
-// 		alert("로그인 해주세요!");
-// 		location.href="member/memberSignIn";
+		alert("로그인 해주세요!");
+		location.href="member/memberSignIn";
 	</script>
-<%-- </c:otherwise> --%>
-<%-- </c:choose> --%>
+</c:otherwise>
+</c:choose>
+<script type="text/javascript">
+	$("#memDel").click(function(){
+		if(confirm("삭제 하시겠습니까?")){
+			var id = "${member.id}";
+			$.ajax({
+				type 	: "POST",
+				url 	: "memberSignOut",
+				data	: {
+					id : id
+					},
+				success	: function(d){
+					d = d.trim();
+	
+					if(d == 1) {
+						alert("See you Later TT");
+						location.href = "/";
+						}else{
+							alert("Plz Try Again Sir");
+						}
+					}
+				});
+		}
+	});
+</script>
 </body>
 </html>

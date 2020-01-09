@@ -7,7 +7,9 @@
     </div>
     <ul class="nav navbar-nav">
       <li><a href="${pageContext.request.contextPath }/">Home</a></li>
-      <li><a href="${pageContext.request.contextPath }/board/NoticeList">Notice</a></li>
+      <li><a href="${pageContext.request.contextPath }/notice/NoticeList">Notice</a></li>
+      <li><a href="${pageContext.request.contextPath }/notice/NoticeSelect?num=2">Notice!</a></li>
+      <li><a href="${pageContext.request.contextPath }/notice/NoticeWrite">Notice Write</a></li>
       <c:choose>
       	<c:when test="${empty member }">
 			<li><a href="${pageContext.request.contextPath }/member/memberSignUp">SIGN UP</a></li>

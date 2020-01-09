@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -91,6 +92,46 @@ public class MemberController {
 	@GetMapping("memberInfo")
 	public void memberInfo() throws Exception {
 
+	}
+	
+	@PostMapping("memberSignOut")
+	@ResponseBody
+	public int memberSignOut(MemberVO memberVO, HttpSession session) throws Exception{
+		return service.memberSignOut(memberVO);
+	}
+	
+	@GetMapping("checkId")
+	@ResponseBody
+	public boolean checkId(MemberVO memberVO) throws Exception{
+		return service.checkId(memberVO);
+	}
+	
+	@GetMapping("memberUpdate")
+	public ModelAndView memberUpdate(HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("memberVO", (MemberVO)session.getAttribute("member"));
+		mv.setViewName("member/memberUpdate");
+		return mv;
+	}
+	
+	@PostMapping("memberUpdate")
+	public ModelAndView memberUpdate(MemberVO memberVO,MultipartFile files) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		String msg = "정보 수정 실패 하였습니다.";
+		String path = "/member/memberInfo";
+		memberVO =service.memberUpdateA(memberVO);
+		if (memberVO!=null) {
+			if (files.getSize() != 0) {	
+				service.memberUpdateB(memberVO, files);
+				msg = "수정 하였습니다.";
+				path = "/";
+			}
+		}
+		mv.addObject("msg", msg);
+		mv.addObject("path", path);
+		mv.setViewName("common/msg");
+		
+		return mv;
 	}
 
 //	@GetMapping("fileDownload")

@@ -7,6 +7,12 @@
 <meta charset="UTF-8">
 <title>SignUp</title>
 <c:import url="../template/boot.jsp"/>
+<style type="text/css">
+	#checkID:hover{
+		border: none;
+		background: none;
+	}
+</style>
 </head>
 <body>
 <c:import url="../template/nav.jsp"/>
@@ -16,7 +22,8 @@
   	<div class="form-group">
       <label for="email">ID:</label>
       <form:input path="id" type="text" class="form-control" id="id" placeholder="Enter ID"/>
-      <form:errors path="id" cssStyle="color:red;"/>
+      
+      <span id="checkID" style="display: none; font-size: 11px;"></span>
     </div>
     <div class="form-group">
       <label for="pw">PW:</label>
@@ -44,5 +51,31 @@
     <button type="submit" class="btn btn-success">Submit</button>
   </form:form>
 </div>
+<script type="text/javascript">
+	$("#id").blur(function(){
+
+		var id = $(this).val();
+
+		$.ajax({
+			type 	: "GET",
+			url 	: "checkId",
+			data	: {
+					id 	: id
+				},
+			success	: function(d) {
+				if(d){
+					$("#checkID").text("사용 중 인 ID입니다.");
+					$("#checkID").css("color","red");
+					$("#checkID").css("display","block");
+					}else{
+						$("#checkID").text("사용가능 한 ID입니다.");
+						$("#checkID").css("color","green");
+						$("#checkID").css("display","block");
+						}
+				} 
+			});
+		});
+
+</script>
 </body>
 </html>

@@ -1,8 +1,10 @@
 package com.coo.b2.member;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
@@ -27,5 +29,7 @@ public class MemberVO {
 	private String pw2;
 	private String name;
 	private String email;
+	@OneToOne(mappedBy = "memberVO", cascade = CascadeType.ALL) // join 하는 Entity에 선언된 자기 자신의 Entity명(멤버변수명)
+	private MemberFilesVO filesVO;
 	
 }

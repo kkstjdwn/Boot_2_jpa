@@ -10,6 +10,8 @@
 </head>
 <body>
 <c:import url="../template/nav.jsp"/>
+<c:choose>
+<c:when test="${notice.title ne '' or notice.title ne null }">
 	<div class="container">
 		<form>
 			<div class="form-group">
@@ -42,17 +44,25 @@
 	      			<input type="text" class="form-control" id="hit" value="${notice.hit}" readonly="readonly">
 				</div>
 	    	</div>
-	    	<c:if test="${list.size() ne 0 }">
-		    	<c:forEach items="${list }" var="f">
+	    	<c:if test="${notice.filesList.size() ne 0 }">
+		    	<c:forEach items="${notice.filesList }" var="f">
 			    	<div class="form-group">
 				      <label class="control-label col-sm-2" for="files">첨부파일</label>
 						<div class="col-sm-10">
-			      			<input type="text" class="form-control files" value="${f.oname}" readonly="readonly">
+			      			<input type="text" class="form-control files" value="${f.fname}" readonly="readonly">
 						</div>
 			    	</div>
 		    	</c:forEach>
 	    	</c:if>
 		</form>
 	</div>
+	</c:when>
+	<c:otherwise>
+	<script type="text/javascript">
+		alert("없는 글번호 입니다.");
+		location.href = "/notice/noticeList";
+</script>
+</c:otherwise>
+</c:choose>
 </body>
 </html>

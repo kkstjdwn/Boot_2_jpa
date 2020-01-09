@@ -30,7 +30,8 @@ public class MemberService {
 	}
 	
 	public MemberFilesVO getImg(MemberVO memberVO) throws Exception{
-		return frepository.findById(memberVO.getId());
+		memberVO= repository.findById(memberVO.getId()).get();
+		return memberVO.getFilesVO();
 	}
 	
 	@Transactional
@@ -50,7 +51,7 @@ public class MemberService {
 		if (check == 1) {
 			File files = generator.useClassPathResource("imgs");
 			MemberFilesVO filesVO = new MemberFilesVO();
-			filesVO.setId(memberVO.getId());
+			filesVO.setMemberVO(memberVO);
 			filesVO.setFname(saver.saver(files, file));
 			filesVO.setOname(file.getOriginalFilename());
 			
@@ -68,13 +69,44 @@ public class MemberService {
 		return br.hasErrors();
 	}
 	
+	public int memberSignOut(MemberVO memberVO) throws Exception{
+		int result = 0;
+		
+		repository.deleteById(memberVO.getId());
+		
+		if (!repository.findById(memberVO.getId()).isPresent()) {
+			result = 1;
+		}
+		
+		
+		return result;
+	}
 	
+	public boolean checkId(MemberVO memberVO) throws Exception{
+		return repository.existsById(memberVO.getId());
+	}
 	
+	public MemberVO memberUpdateA(MemberVO memberVO) throws Exception{
+		repository.save(memberVO);
+		return repository.findById(memberVO.getId()).get();
+	}
 	
-	
-	
-	
-	
+	@Transactional
+	public boolean memberUpdateB(MemberVO memberVO,MultipartFile files) throws Exception{
+		boolean check = true;
+		File save = generator.useClassPathResource("member");
+		MemberFilesVO filesVO = new MemberFilesVO();
+		
+		if (memberVO.getFilesVO() != null) {
+			filesVO = memberVO.getFilesVO();
+		}else {			
+			filesVO.setMemberVO(memberVO);
+		}
+		filesVO.setFname(saver.saver(save, files));
+		filesVO.setOname(files.getOriginalFilename());
+		frepository.save(filesVO);
+		return check;
+	}
 	
 	
 	

@@ -15,8 +15,7 @@
 <c:import url="../template/nav.jsp"/>
 <div class="container">
   <h2 style="text-align: center;">Notice Write</h2>
-  
-  <form:form class="form-horizontal" action="NoticeWrite" modelAttribute="noticeVO" method="post" id="frm" enctype="multipart/form-data">
+  <form:form class="form-horizontal" action="NoticeWrite" modelAttribute="notice" method="post" id="frm" enctype="multipart/form-data">
     <div class="form-group">
       <label class="control-label col-sm-2" for="title">TITLE</label>
       <div class="col-sm-10">
@@ -44,8 +43,7 @@
 <!-- 			<div class="input-group col-xs-3"> -->
 <!-- 				<input type="file" name="files" class="form-control"> -->
 <!-- 				<span class="input-group-addon"> -->
-<!-- 					<i class="glyphicon glyphicon-remove del"> -->
-<!-- 					</i> -->
+<!-- 					<i class="glyphicon glyphicon-remove del"></i> -->
 <!-- 				</span> -->
 <!-- 			</div> -->
 		</div>

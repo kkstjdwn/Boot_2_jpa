@@ -25,11 +25,67 @@ class MemberTest {
 	@Test
 	void test() throws Exception{
 		
+//		MemberVO vo = new MemberVO();
+//		vo.setId("co2");
+//		vo.setPw("coco");
+//		vo.setName("coco");
+//		vo.setEmail("co@coco");
+//		
+//		MemberFilesVO fvo = new MemberFilesVO();
+//		
+//		
+//		fvo.setFname("new 2");
+//		fvo.setOname("new 2");
+//		
+//		vo = repository.save(vo);
+//		vo = repository.findById(vo.getId()).get();
+//		Thread.sleep(500);
+//		
+//		fvo.setFnum(vo.getFilesVO().getFnum());
+//		fvo.setMemberVO(vo);
+//		
+//		frepository.save(fvo);
+		
+		MemberVO vo =repository.findById("99").get();
+		System.out.println(vo.getFilesVO().getFnum() + " = fnum");
+		
+//		repository.deleteById("co1");
+		
+//		MemberVO vo = new MemberVO();
+//		MemberFilesVO fvo = new MemberFilesVO();
+//		
+//		vo.setId("co1");
+//		vo.setPw("co1");
+//		vo.setName("co1");
+//		vo.setEmail("co@1");
+//		fvo.setMemberVO(vo);
+//		fvo.setFname("00co1.JPG");
+//		fvo.setOname("co1.JPG");
+//		
+//		vo = repository.save(vo);
+//		fvo = frepository.save(fvo);
+		
+		
+		
+		
+		
+//		MemberFilesVO filesVO = frepository.findById(3).get();
+//		System.out.println("FNAME = "+filesVO.getFname());
+//		System.out.println("EMAIL = "+filesVO.getMemberVO().getEmail());
+//		
+//		
+//		Optional<MemberVO> opt =repository.findById("co");
+//		MemberVO vo = opt.get();
+//		
+//		System.out.println("NAME = "+vo.getName());
+//		System.out.println("FNAME = "+vo.getFilesVO().getFname());
+//		System.out.println("FILE ID = "+vo.getFilesVO().getMemberVO().getId());
+		
 //		MemberVO vo = repository.findByIdAndPw("co", "co");
 //		System.out.println(vo.getEmail() + " = email");
 	
-		MemberFilesVO fvo = frepository.findById("co");
-		System.out.println(fvo.getFname() + " = fname");
+//		MemberFilesVO fvo = frepository.findById("co");
+//		System.out.println(fvo.getFname() + " = fname");
 		
 		
 		
