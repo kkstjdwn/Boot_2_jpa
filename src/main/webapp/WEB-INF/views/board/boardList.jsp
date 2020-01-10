@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지's</title>
+<title>목록's</title>
 <c:import url="../template/boot.jsp"/>
 </head>
 <body>
@@ -22,18 +22,28 @@
         <th>글쓴이</th>
         <th>작성날짜</th>
         <th>조회수</th>
+        <c:if test="${board eq 'Qna' }">
+	        <th>REF</th>
+	        <th>STEP</th>
+	        <th>DEPTH</th>
+        </c:if>
       </tr>
     </thead>
     <tbody>
-	<c:forEach items="${list }" var="notice">
+	<c:forEach items="${list }" var="boardVO">
       <tr>
-        <td>${notice.num }</td>
-        <td><a href="NoticeSelect?num=${notice.num }">${notice.title }</a></td>
-        <td>${notice.writer }</td>
-        <td>${notice.regDate }</td>
-        <td>${notice.hit }</td>
+        <td>${boardVO.num }</td>
+        <td><a href="NoticeSelect?num=${boardVO.num }">${boardVO.title }</a></td>
+        <td>${boardVO.writer }</td>
+        <td>${boardVO.regDate }</td>
+        <td>${boardVO.hit }</td>
+        <c:if test="${board eq 'Qna' }">
+	        <td>${boardVO.ref }</td>
+	        <td>${boardVO.step }</td>
+	        <td>${boardVO.depth }</td>
+        </c:if>
         <td>
-        	<c:forEach items="${notice.filesList }" var="f">
+        	<c:forEach items="${boardVO.filesList }" var="f">
         		<span> ${f.oname }</span>
         	</c:forEach>
         </td>
@@ -54,11 +64,11 @@
 		<c:forEach begin="${pager.startNum }" end="${pager.lastNum}" var="p">
 		<c:choose>
 			<c:when test="${pager.curPage eq p }">
-				<button type="button" style="color: black; font-weight: bold;" title="${p }" class="btn-pager"> ${p } </button>
+				<button type="button" style="color: black; font-weight: bold;" title="${p }" class="btn-pager" id="move"> ${p } </button>
 			</c:when>
 			<c:otherwise>
-				<a href="NoticeList?page=${p-1 }&size=10">${p }</a>
-<%-- 				<button type="button" title="${p }"  class="btn-pager"> ${p } </button> --%>
+<%-- 				<a href="NoticeList?page=${p-1 }&size=10">${p }</a> --%>
+				<button type="button" value="${p }"  class="btn-pager" id="move" onclick="search()"> ${p } </button>
 			</c:otherwise>
 		</c:choose>
 		
@@ -85,7 +95,8 @@
 
 <script type="text/javascript">
 	function search() {
-		location.href = "NoticeSearch?kind="+$("#kind").val()+"&search="+$("#search").val();
+		var 
+		location.href = "NoticeList?kind="+$("#kind").val()+"&search="+$("#search").val()+"&page="$("#move").val()+"&size=10";
 		}
 </script>
 </body>

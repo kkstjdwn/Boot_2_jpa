@@ -10,6 +10,8 @@
       <li><a href="${pageContext.request.contextPath }/notice/NoticeList">Notice</a></li>
       <li><a href="${pageContext.request.contextPath }/notice/NoticeSelect?num=2">Notice!</a></li>
       <li><a href="${pageContext.request.contextPath }/notice/NoticeWrite">Notice Write</a></li>
+      <li><a href="${pageContext.request.contextPath }/qna/QnaList">Qna</a></li>
+      <li><a href="${pageContext.request.contextPath }/qna/QnaWrite">Qna Write</a></li>
       <c:choose>
       	<c:when test="${empty member }">
 			<li><a href="${pageContext.request.contextPath }/member/memberSignUp">SIGN UP</a></li>

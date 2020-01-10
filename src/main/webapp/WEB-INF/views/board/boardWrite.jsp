@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지 작성</title>
+<title>글 작성</title>
 <c:import url="../template/boot.jsp"/>
 <!-- 서머노트 -->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
@@ -14,8 +14,8 @@
 <body>
 <c:import url="../template/nav.jsp"/>
 <div class="container">
-  <h2 style="text-align: center;">Notice Write</h2>
-  <form:form class="form-horizontal" action="NoticeWrite" modelAttribute="notice" method="post" id="frm" enctype="multipart/form-data">
+  <h2 style="text-align: center;"><span style="text-transform: uppercase;">${board }</span> Write</h2>
+  <form:form class="form-horizontal" action="${board }Write" modelAttribute="boardVO" method="post" id="frm" enctype="multipart/form-data">
     <div class="form-group">
       <label class="control-label col-sm-2" for="title">TITLE</label>
       <div class="col-sm-10">

@@ -38,10 +38,14 @@ public class NoticeController {
 	}
 	
 	@GetMapping("NoticeList")
-	public ModelAndView noticeList(@PageableDefault(size = 10,page = 0)Pageable pageable) throws Exception{
+	public ModelAndView noticeList(@PageableDefault(size = 10,page = 0)Pageable pageable, SqlPager pager) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		Page<NoticeVO> list = service.noticeList(pageable);
-		SqlPager pager = new SqlPager();
+		Page<NoticeVO> list;
+		if (pager.getKind() == "" || pager.getKind() == null) {			
+			list = service.noticeList(pageable);
+		}else {
+			list = service.searchList(pager, pageable);
+		}
 		pager.makePager(list);
 		mv.addObject("pager", pager);
 		mv.addObject("list", list.getContent());
@@ -53,7 +57,7 @@ public class NoticeController {
 	@GetMapping("NoticeWrite")
 	public ModelAndView noticeWrite(NoticeVO noticeVO) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("notice", noticeVO);
+		mv.addObject("boardVO", noticeVO);
 		mv.setViewName("board/boardWrite");
 		return mv;
 	}

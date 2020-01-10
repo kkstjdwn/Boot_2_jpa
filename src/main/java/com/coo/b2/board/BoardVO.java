@@ -17,12 +17,12 @@ import lombok.Data;
 public class BoardVO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer num;
+	private int num;
 	@NotEmpty
 	private String title;
 	private String writer;
 	private String contents;
 	@CreationTimestamp
 	private Date regDate;
-	private Integer hit;
+	private int hit;
 }

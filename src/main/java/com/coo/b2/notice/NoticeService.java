@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.coo.b2.util.FilePathGenerator;
 import com.coo.b2.util.FileSaver;
+import com.coo.b2.util.SqlPager;
 @Service
 @Transactional
 public class NoticeService {
@@ -78,6 +79,46 @@ public class NoticeService {
 		}else {
 			return false;
 		}
+		
+		
+	}
+	
+	public Page<NoticeVO> searchList(SqlPager pager, Pageable pageable) throws Exception{
+		if (pager.getKind().equals("tt")) {
+			Page<NoticeVO> ar =repository.findByTitleContainingAndNumGreaterThanOrderByNumDesc(pager.getSearch(), 0, pageable);
+			for (NoticeVO noticeVO : ar) {
+				noticeVO.getFilesList();
+			}
+			return ar;
+		}else if(pager.getKind().equals("wt")) {
+			Page<NoticeVO> ar =repository.findByWriterContainingAndNumGreaterThanOrderByNumDesc(pager.getSearch(), 0, pageable);
+			for (NoticeVO noticeVO : ar) {
+				noticeVO.getFilesList();
+			}
+			return ar;
+		}else {
+			Page<NoticeVO> ar =repository.findByContentsContainingAndNumGreaterThanOrderByNumDesc(pager.getSearch(), 0, pageable);
+			for (NoticeVO noticeVO : ar) {
+				noticeVO.getFilesList();
+			}
+			return ar;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //		File file = generator.useClassPathResource("board");
 //		int count = files.length;
 //		noticeVO = repository.save(noticeVO);
@@ -112,6 +153,6 @@ public class NoticeService {
 //				return false;
 //			}
 //		}
-	}
+//	}
 	
 }

@@ -17,6 +17,8 @@ public class SqlPager {
 	private Integer perBlock;
 	private Integer totalBlock;
 	private Integer totalPage;
+	private String kind;
+	private String search;
 
 //	public void makeRow(Page<NoticeVO> list) throws Exception{
 //		this.perPage = list.getSize();
@@ -75,9 +77,7 @@ public class SqlPager {
 		}
 		
 		this.totalBlock = this.totalPage / this.perBlock;
-		if (this.totalPage%this.perBlock!=0) {
-			this.totalBlock++;
-		}
+		
 		
 		this.curBlock = list.getNumber() / this.perBlock;
 //		if (list.getNumber() % this.perBlock !=0) {
